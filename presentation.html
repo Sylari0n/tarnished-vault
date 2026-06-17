@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Tarnished Vault – Project Overview</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0f1a;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    .slide {
+      min-height: 100vh;
+      padding: 60px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid #222;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── TITLE SLIDE ── */
+    .slide-title {
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1a 70%);
+    }
+
+    .slide-title .badge {
+      background: #c0392b;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .slide-title h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: #f0c040;
+      text-shadow: 0 0 40px rgba(240,192,64,0.3);
+      margin-bottom: 12px;
+    }
+
+    .slide-title .subtitle {
+      font-size: 1.2rem;
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      background: #1a1a2e;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 16px 28px;
+      text-align: center;
+    }
+
+    .meta-item .label { font-size: 0.72rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+    .meta-item .value { font-size: 1rem; color: #e0e0e0; font-weight: 600; margin-top: 4px; }
+
+    /* ── SECTION HEADER ── */
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #f0c040;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: #f0c040;
+      border-radius: 2px;
+      margin-bottom: 36px;
+    }
+
+    p { color: #aaa; margin-bottom: 12px; font-size: 1rem; }
+
+    /* ── CARDS ── */
+    .card-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      background: #141428;
+      border: 1px solid #2a2a4a;
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .card .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      color: #888;
+      margin: 0;
+    }
+
+    .card .tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .tag-azure { background: #003a6e; color: #4fc3f7; }
+    .tag-code  { background: #2e1a0e; color: #f0a060; }
+    .tag-infra { background: #0e2e1a; color: #60f0a0; }
+
+    /* ── REQUIREMENT CHECKLIST ── */
+    .req-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+
+    .req-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #141428;
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+
+    .req-list li .check {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #1a3a1a;
+      color: #4caf50;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .req-list li .req-text strong {
+      display: block;
+      color: #fff;
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+
+    .req-list li .req-text span {
+      font-size: 0.83rem;
+      color: #888;
+    }
+
+    /* ── FLOW DIAGRAM ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .flow-step {
+      background: #141428;
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
+      padding: 16px 20px;
+      text-align: center;
+      min-width: 130px;
+    }
+
+    .flow-step .step-icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .flow-step .step-title { font-size: 0.78rem; font-weight: 700; color: #fff; }
+    .flow-step .step-sub { font-size: 0.7rem; color: #666; margin-top: 3px; }
+
+    .flow-arrow {
+      color: #f0c040;
+      font-size: 1.4rem;
+      padding: 0 8px;
+      flex-shrink: 0;
+    }
+
+    /* ── FILE TREE ── */
+    .file-tree {
+      background: #0d0d1a;
+      border: 1px solid #2a2a4a;
+      border-radius: 12px;
+      padding: 28px 32px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      line-height: 2;
+    }
+
+    .file-tree .folder { color: #f0c040; font-weight: 700; }
+    .file-tree .file   { color: #aaa; }
+    .file-tree .note   { color: #555; font-size: 0.78rem; }
+
+    /* ── SERVICE TABLE ── */
+    .service-table { width: 100%; border-collapse: collapse; }
+    .service-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      padding: 10px 16px;
+      border-bottom: 1px solid #2a2a4a;
+    }
+    .service-table td {
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #1a1a2e;
+      vertical-align: top;
+    }
+    .service-table td:first-child { color: #4fc3f7; font-weight: 700; }
+    .service-table td:nth-child(2) { color: #aaa; }
+    .service-table td:nth-child(3) { color: #60f0a0; }
+    .service-table td:last-child  { color: #f0a060; font-style: italic; font-size: 0.8rem; }
+    .service-table tr:last-child td { border-bottom: none; }
+
+    /* ── COST TABLE ── */
+    .cost-table { width: 100%; border-collapse: collapse; }
+    .cost-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      padding: 10px 16px;
+      border-bottom: 1px solid #2a2a4a;
+    }
+    .cost-table td {
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .cost-table td:first-child { color: #4fc3f7; font-weight: 600; }
+    .cost-table td:nth-child(2) { color: #aaa; }
+    .cost-table td:last-child { color: #60f0a0; font-weight: 700; text-align: right; }
+    .cost-table .total td { border-top: 1px solid #f0c040; color: #f0c040 !important; font-weight: 800; }
+    .cost-table tr:last-child td { border-bottom: none; }
+
+    /* ── TWO COLUMN ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: #1a1a00;
+      border: 1px solid #f0c040;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-top: 20px;
+    }
+    .highlight-box p { color: #c0a020; margin: 0; font-size: 0.9rem; }
+
+    /* ── SLIDE NUMBER ── */
+    .slide-num {
+      font-size: 0.7rem;
+      color: #333;
+      text-align: right;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 1 — TITLE
+══════════════════════════════════════════════════════ -->
+<div class="slide slide-title">
+  <div class="badge">Cloud Computing Mini Project — Assessment #3</div>
+  <h1>The Tarnished Vault</h1>
+  <p class="subtitle">A Distributed Game Loadout API on Microsoft Azure</p>
+  <div class="meta-row">
+    <div class="meta-item">
+      <div class="label">Student</div>
+      <div class="value">Muhammed Emin Haliş</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Student ID</div>
+      <div class="value">20250821</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Institution</div>
+      <div class="value">Politécnico Castelo Branco</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Tech Stack</div>
+      <div class="value">C# .NET 9 · Azure · Docker</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 2 — WHAT IS THIS PROJECT?
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">01 / CONCEPT</div>
+  <div class="section-label">What is this project?</div>
+  <h2>The Problem We're Solving</h2>
+  <div class="divider"></div>
+
+  <div class="two-col">
+    <div>
+      <p>Games like <strong style="color:#fff">Elden Ring</strong>, <strong style="color:#fff">Warframe</strong>, and <strong style="color:#fff">Helldivers 2</strong> have complex character builds — stat distributions, weapon choices, armor combinations.</p>
+      <p>Right now, players share these builds through scattered Reddit posts, Discord messages, and screenshots. There is no dedicated, structured place to store and browse them.</p>
+      <p><strong style="color:#f0c040">The Tarnished Vault</strong> is a REST API that acts as a centralized database for these character loadouts — supporting both structured stat data and visual screenshots.</p>
+    </div>
+    <div class="card-grid" style="grid-template-columns: 1fr;">
+      <div class="card">
+        <div class="card-icon">⚔️</div>
+        <h3>POST /builds</h3>
+        <p>Submit a character loadout — stats in JSON format, plus an optional screenshot image file.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🖼️</div>
+        <h3>GET /builds</h3>
+        <p>Retrieve all community builds. Each entry includes stats AND a direct image URL from Azure Blob Storage.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 3 — MANDATORY REQUIREMENTS CHECK
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">02 / REQUIREMENTS</div>
+  <div class="section-label">Assignment checklist</div>
+  <h2>Every Mandatory Requirement — Covered</h2>
+  <div class="divider"></div>
+
+  <ul class="req-list">
+    <li>
+      <div class="check">✓</div>
+      <div class="req-text">
+        <strong>GitHub repository integrated with Azure App Service</strong>
+        <span>Code lives on GitHub. GitHub Actions workflow auto-deploys to Azure App Service on every git push.</span>
+      </div>
+    </li>
+    <li>
+      <div class="check">✓</div>
+      <div class="req-text">
+        <strong>Cloud infrastructure created automatically via script (IaC)</strong>
+        <span>A single Bash script using Azure CLI provisions the entire environment: Resource Group, App Service, CosmosDB, Blob Storage, Function App.</span>
+      </div>
+    </li>
+    <li>
+      <div class="check">✓</div>
+      <div class="req-text">
+        <strong>NoSQL CosmosDB database</strong>
+        <span>All character build data is stored as flexible JSON documents in Azure CosmosDB — no rigid schema needed across different games.</span>
+      </div>
+    </li>
+    <li>
+      <div class="check">✓</div>
+      <div class="req-text">
+        <strong>At least one Docker Container</strong>
+        <span>The .NET API is packaged inside a Docker container. This ensures it runs identically locally and on Azure App Service.</span>
+      </div>
+    </li>
+    <li>
+      <div class="check">✓</div>
+      <div class="req-text">
+        <strong>At least one Azure Function (serverless computing)</strong>
+        <span>A Blob-triggered Azure Function fires automatically whenever a screenshot is uploaded. It logs the filename, file size, and timestamp asynchronously.</span>
+      </div>
+    </li>
+    <li>
+      <div class="check">✓</div>
+      <div class="req-text">
+        <strong>At least one cloud storage service (BLOB or other)</strong>
+        <span>Azure Blob Storage stores all character screenshots. Each uploaded image gets a public URL that is saved inside the CosmosDB document.</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 4 — AZURE SERVICES TABLE
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">03 / ARCHITECTURE</div>
+  <div class="section-label">Azure services</div>
+  <h2>What Each Service Does & Why</h2>
+  <div class="divider"></div>
+
+  <table class="service-table">
+    <thead>
+      <tr>
+        <th>Azure Service</th>
+        <th>Role in this project</th>
+        <th>What it replaces (if local)</th>
+        <th>Tier (cost)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>App Service</td>
+        <td>Hosts the C# .NET Minimal API. Runs the Docker container in the cloud.</td>
+        <td>Running <code>dotnet run</code> on your laptop</td>
+        <td>F1 Free tier</td>
+      </tr>
+      <tr>
+        <td>CosmosDB</td>
+        <td>NoSQL database. Stores each build as a JSON document with an embedded screenshot URL.</td>
+        <td>A local MongoDB or SQLite database</td>
+        <td>Serverless (~free at dev scale)</td>
+      </tr>
+      <tr>
+        <td>Blob Storage</td>
+        <td>Binary file store. Holds character screenshots and returns a public URL per file.</td>
+        <td>A local <code>/uploads</code> folder</td>
+        <td>Standard LRS (~cents)</td>
+      </tr>
+      <tr>
+        <td>Azure Functions</td>
+        <td>Serverless function triggered by Blob uploads. Logs event metadata in the background.</td>
+        <td>A background worker / cron job</td>
+        <td>Consumption (first 1M free)</td>
+      </tr>
+      <tr>
+        <td>GitHub Actions</td>
+        <td>CI/CD pipeline. Builds the Docker image and deploys to App Service on every push.</td>
+        <td>Manually running <code>docker build</code> and <code>az deploy</code></td>
+        <td>Free</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 5 — REQUEST FLOW
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">04 / DATA FLOW</div>
+  <div class="section-label">How a request travels through the system</div>
+  <h2>POST /builds — Step by Step</h2>
+  <div class="divider"></div>
+
+  <div class="flow" style="margin-bottom: 40px;">
+    <div class="flow-step">
+      <div class="step-icon">📱</div>
+      <div class="step-title">Client</div>
+      <div class="step-sub">Postman / curl<br/>multipart POST</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-icon">⚙️</div>
+      <div class="step-title">App Service</div>
+      <div class="step-sub">.NET API<br/>in Docker</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-icon">🗄️</div>
+      <div class="step-title">CosmosDB</div>
+      <div class="step-sub">Save JSON<br/>document</div>
+    </div>
+    <div class="flow-arrow">+</div>
+    <div class="flow-step">
+      <div class="step-icon">🖼️</div>
+      <div class="step-title">Blob Storage</div>
+      <div class="step-sub">Save image<br/>get URL back</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="step-icon">⚡</div>
+      <div class="step-title">Azure Function</div>
+      <div class="step-sub">Auto-triggered<br/>logs metadata</div>
+    </div>
+  </div>
+
+  <div class="card-grid cols-3">
+    <div class="card">
+      <span class="tag tag-code">Step 1</span>
+      <h3>Client sends request</h3>
+      <p>A <code>multipart/form-data</code> POST containing a JSON body (stats, title, game) and optionally an image file (the screenshot).</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-azure">Step 2</span>
+      <h3>API routes the data</h3>
+      <p>The .NET API separates the JSON from the binary. JSON → CosmosDB. Image → Blob Storage. The returned Blob URL is embedded into the CosmosDB document.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-infra">Step 3</span>
+      <h3>Background event fires</h3>
+      <p>The Blob upload automatically triggers the Azure Function. It runs in the background — the client already got its <code>201 Created</code> response. No delay.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 6 — WHAT THE DATA LOOKS LIKE
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">05 / DATA MODEL</div>
+  <div class="section-label">What gets stored</div>
+  <h2>CosmosDB Document Structure</h2>
+  <div class="divider"></div>
+
+  <div class="two-col">
+    <div class="file-tree">
+<span class="folder">{</span>
+  <span class="file">"id":</span> <span style="color:#f0c040">"uuid-auto-generated"</span>,
+  <span class="file">"game":</span> <span style="color:#f0c040">"Elden Ring"</span>,
+  <span class="file">"title":</span> <span style="color:#f0c040">"Dragon Knight Build"</span>,
+  <span class="file">"author":</span> <span style="color:#f0c040">"TarnishedWarrior"</span>,
+  <span class="file">"description":</span> <span style="color:#f0c040">"High DEX/ARC..."</span>,
+  <span class="folder">"stats":</span> <span class="folder">{</span>
+    <span class="file">"level":</span> <span style="color:#60f0a0">150</span>,
+    <span class="file">"vigor":</span> <span style="color:#60f0a0">40</span>,
+    <span class="file">"dexterity":</span> <span style="color:#60f0a0">55</span>,
+    <span class="file">"arcane":</span> <span style="color:#60f0a0">50</span>
+  <span class="folder">}</span>,
+  <span class="folder">"equipment":</span> <span class="folder">{</span>
+    <span class="file">"weapon":</span> <span style="color:#f0c040">"Dragon Crest Greatshield"</span>,
+    <span class="file">"talisman":</span> <span style="color:#f0c040">"Millicent's Prosthesis"</span>
+  <span class="folder">}</span>,
+  <span class="file">"screenshotUrl":</span> <span style="color:#4fc3f7">"https://blob.azure.com/..."</span>,
+  <span class="file">"createdAt":</span> <span style="color:#f0c040">"2026-06-17T23:00:00Z"</span>
+<span class="folder">}</span>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom: 16px;">
+        <h3>Why NoSQL (CosmosDB)?</h3>
+        <p>Elden Ring has different stats than Warframe. A rigid SQL table can't handle both. CosmosDB stores flexible JSON — each game can have its own fields without breaking the schema.</p>
+      </div>
+      <div class="card">
+        <h3>Why separate Blob Storage?</h3>
+        <p>Storing binary image data inside a database is bad practice — it bloats the DB and slows queries. Blob Storage is purpose-built for files. We only store the URL inside CosmosDB, not the image bytes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 7 — PROJECT FILE STRUCTURE
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">06 / STRUCTURE</div>
+  <div class="section-label">What we will build</div>
+  <h2>Project File Structure</h2>
+  <div class="divider"></div>
+
+  <div class="two-col">
+    <div class="file-tree">
+<span class="folder">TarnishedVault/</span>
+│
+├── <span class="folder">src/</span>
+│   ├── <span class="folder">TarnishedVault.Api/</span>          <span class="note">← .NET Minimal API</span>
+│   │   ├── <span class="file">Program.cs</span>               <span class="note">← app entry point + routes</span>
+│   │   ├── <span class="folder">Models/</span>
+│   │   │   └── <span class="file">Build.cs</span>             <span class="note">← C# data model</span>
+│   │   ├── <span class="folder">Services/</span>
+│   │   │   ├── <span class="file">CosmosDbService.cs</span>   <span class="note">← save/read builds</span>
+│   │   │   └── <span class="file">BlobService.cs</span>       <span class="note">← upload screenshots</span>
+│   │   └── <span class="file">Dockerfile</span>               <span class="note">← containerize the API</span>
+│   │
+│   └── <span class="folder">TarnishedVault.Functions/</span>    <span class="note">← Azure Function project</span>
+│       └── <span class="file">BlobTriggerFunction.cs</span>   <span class="note">← fires on image upload</span>
+│
+├── <span class="folder">infra/</span>
+│   └── <span class="file">provision.sh</span>                 <span class="note">← IaC: creates Azure resources</span>
+│
+└── <span class="folder">.github/workflows/</span>
+    └── <span class="file">deploy.yml</span>                   <span class="note">← GitHub Actions CI/CD</span>
+    </div>
+    <div class="card-grid" style="grid-template-columns: 1fr;">
+      <div class="card">
+        <span class="tag tag-code">You already know this</span>
+        <h3>Program.cs + Services</h3>
+        <p>Standard .NET Minimal API pattern. Two endpoints, two service classes. Same as any API you've built — just talking to Azure instead of a local DB.</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-azure">New concept</span>
+        <h3>Azure Function project</h3>
+        <p>A separate small C# project. One function class, one method. Azure runs it automatically — you never call it manually.</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-infra">New concept</span>
+        <h3>provision.sh</h3>
+        <p>A Bash script that runs <code>az</code> CLI commands to create every Azure resource. Run once = full environment ready.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 8 — ESTIMATED COST
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">07 / COST</div>
+  <div class="section-label">Monthly cost forecast</div>
+  <h2>Estimated Monthly Cost — Budget-Optimized</h2>
+  <div class="divider"></div>
+
+  <table class="cost-table">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Tier / Config</th>
+        <th>Est. Monthly Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Azure App Service</td>
+        <td>F1 Free tier (1 instance, shared compute)</td>
+        <td>$0.00</td>
+      </tr>
+      <tr>
+        <td>Azure CosmosDB</td>
+        <td>Serverless — pay per Request Unit consumed (~100K RUs/month at dev scale)</td>
+        <td>~$0.03</td>
+      </tr>
+      <tr>
+        <td>Azure Blob Storage</td>
+        <td>Standard LRS — ~100 images × 2MB avg = ~200MB storage</td>
+        <td>~$0.01</td>
+      </tr>
+      <tr>
+        <td>Azure Functions</td>
+        <td>Consumption plan — first 1,000,000 executions/month are free</td>
+        <td>$0.00</td>
+      </tr>
+      <tr>
+        <td>Storage Account (Functions)</td>
+        <td>Required by Functions runtime — minimal usage</td>
+        <td>~$0.01</td>
+      </tr>
+      <tr class="total">
+        <td>TOTAL</td>
+        <td>Well within Azure student free credits</td>
+        <td>~$0.05 / month</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box">
+    <p>💡 With $172 in Azure credits, this project costs approximately <strong>5 cents per month</strong>. The credits are safe for your exam tomorrow.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 9 — BUILD ORDER TONIGHT
+══════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">08 / PLAN</div>
+  <div class="section-label">What we build tonight</div>
+  <h2>Build Order — Midnight Deadline</h2>
+  <div class="divider"></div>
+
+  <div class="card-grid cols-2">
+    <div class="card">
+      <span class="tag tag-infra">Step 1 — Infrastructure</span>
+      <h3>Write &amp; run provision.sh</h3>
+      <p>Creates all Azure resources with one command. Nothing else works without this. Takes ~5 minutes to run.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-code">Step 2 — Core API</span>
+      <h3>C# .NET Minimal API</h3>
+      <p>POST /builds and GET /builds endpoints. CosmosDB integration for saving and reading build documents.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-azure">Step 3 — Blob Storage</span>
+      <h3>Image upload support</h3>
+      <p>Add image upload to POST /builds. File goes to Blob Storage, URL gets embedded in the CosmosDB document.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-azure">Step 4 — Azure Function</span>
+      <h3>Blob trigger logger</h3>
+      <p>Separate Function project. Fires automatically when an image lands in Blob Storage. Logs filename, size, timestamp.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-infra">Step 5 — Docker + Deploy</span>
+      <h3>Containerize &amp; push</h3>
+      <p>Write Dockerfile, push to GitHub, GitHub Actions deploys to Azure App Service automatically.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-code">Step 6 — Test &amp; Verify</span>
+      <h3>End-to-end test</h3>
+      <p>POST a build with a screenshot to the live Azure URL. Confirm CosmosDB has the document. Confirm Function logged the event.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SLIDE 10 — SUMMARY
+══════════════════════════════════════════════════════ -->
+<div class="slide slide-title">
+  <div class="badge">Summary</div>
+  <h1 style="font-size:2.4rem">We Know What We're Building</h1>
+  <p class="subtitle" style="max-width:680px; margin: 0 auto 40px;">
+    A cloud-native game loadout API that correctly uses every mandatory Azure service — with minimal cost, clean architecture, and a clear code structure you can explain and defend.
+  </p>
+  <div class="meta-row">
+    <div class="meta-item">
+      <div class="label">Mandatory Requirements</div>
+      <div class="value" style="color:#4caf50">6 / 6 Covered ✓</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Estimated Monthly Cost</div>
+      <div class="value" style="color:#f0c040">~$0.05</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Azure Credits Used Tonight</div>
+      <div class="value" style="color:#4fc3f7">&lt; $5</div>
+    </div>
+    <div class="meta-item">
+      <div class="label">Language</div>
+      <div class="value">C# .NET 9</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
